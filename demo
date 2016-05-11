@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+main() {
+  while true; do
+    clear
+    echo
+    echo "Select a demo # to run:"
+    echo
+    files=($(echo /demo-*))
+    i=1
+    for file in "${files[@]}"; do
+      echo "$i) ${file#/}"
+      : $(( i++ ))
+    done
+    echo
+    printf "Enter a number ('q' to quit): "
+    read num
+    [[ $num =~ ^[qQ] ]] && break
+    [[ $num =~ ^[1-9][0-9]*$ ]] || continue
+    : $(( num-- ))
+    file=${files[$num]}
+    [[ -n $file ]] || continue
+    perl "$file"
+  done
+}
+
+[[ $0 != "$BASH_SOURCE" ]] || main "$@"

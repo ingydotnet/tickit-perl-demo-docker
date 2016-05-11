@@ -1,0 +1,3 @@
+Build a Docker image for running Perl Tickit demos.
+
+  docker run -it termui/tickit-perl-demo
